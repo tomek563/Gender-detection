@@ -16,35 +16,53 @@ public class GenderService {
         this.gender = gender;
     }
 
-    public Sex guessGenderWithFirstVariant(String name) {
+    public Sex guessGenderWithFirstVariant(String name) { // TODO: 27.02.2021 ignoreCase
         String[] s = name.split(" ");
         String firstPartOfName = s[0];
-        List<String> males = getMatchingGender(firstPartOfName, gender.getMale());
-        List<String> females = getMatchingGender(firstPartOfName, gender.getFemale());
-        return getGender(males, females);
+        List<String> males = getMatchingGenderWithFirstVariant(firstPartOfName, gender.getMale());
+        List<String> females = getMatchingGenderWithFirstVariant(firstPartOfName, gender.getFemale());
+        return getGenderWithFirstVariant(males, females);
     }
 
-    private Sex getGender(List<String> males, List<String> females) {
+    private Sex getGenderWithFirstVariant(List<String> males, List<String> females) {
         if (!males.isEmpty() && !females.isEmpty()) {
             return Sex.INCONCLUSIVE;
-        } else if(!males.isEmpty()) {
-            return Sex.MALE;
-        } else if (!females.isEmpty()) {
-            return Sex.FEMALE;
-        } else {
-            return Sex.INCONCLUSIVE;
-        }
+        } else return getGenderWithSecondVariant(!males.isEmpty(), !females.isEmpty());
     }
 
-    private List<String> getMatchingGender(String firstPartOfName, List<String> gender) {
+    private List<String> getMatchingGenderWithFirstVariant(String firstPartOfName, List<String> gender) {
         return gender.stream()
                 .filter(maleName -> maleName.equals(firstPartOfName))
                 .collect(Collectors.toList());
     }
 
     public Sex guessGenderWithSecondVariant(String name) {
+        List<String> male = getMatchingGenderWithSecondVariant(name, gender.getMale());
+        List<String> female = getMatchingGenderWithSecondVariant(name, gender.getFemale());
+        return getGenderWithSecondVariant(male.size() > female.size(), male.size() < female.size());
+    }
+
+    private Sex getGenderWithSecondVariant(boolean b1, boolean b2) {
+        if (b1) {
+            return Sex.MALE;
+        } else if (b2) {
+            return Sex.FEMALE;
+        } else {
+            return Sex.INCONCLUSIVE;
+        }
+    }
+
+    private List<String> getMatchingGenderWithSecondVariant(String name, List<String> gender) {
         String[] s = name.split(" ");
-        return Sex.INCONCLUSIVE;
+        List<String> collect = new ArrayList<>();
+        for (String s1 : s) {
+            for (String person : gender) {
+                if (s1.equals(person)) {
+                    collect.add(person);
+                }
+            }
+        }
+        return collect;
     }
 
     public List<Gender> getAllAvailableTokens() {
