@@ -31,13 +31,13 @@ public class PeopleController {
     }
     @GetMapping("/tokens/male")
     public ResponseEntity<List<String>> getAllMaleTokensList() {
-        List<String> allAvailableTokens = peopleService.getAllAvailableMaleTokens();
-        return ResponseEntity.ok(allAvailableTokens);
+        List<String> allAvailableMaleTokens = peopleService.getAllAvailableMaleTokens();
+        return ResponseEntity.ok(allAvailableMaleTokens);
     }
     @GetMapping("/tokens/female")
     public ResponseEntity<List<String>> getAllFemaleTokensList() {
-        List<String> allAvailableTokens = peopleService.getAllAvailableFemaleTokens();
-        return ResponseEntity.ok(allAvailableTokens);
+        List<String> allAvailableFemaleTokens = peopleService.getAllAvailableFemaleTokens();
+        return ResponseEntity.ok(allAvailableFemaleTokens);
     }
     @GetMapping("/tokens/people")
     public ResponseEntity<People> getAllPeopleTokensList() {
