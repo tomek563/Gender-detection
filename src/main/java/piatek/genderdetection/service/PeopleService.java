@@ -16,9 +16,9 @@ public class PeopleService {
         this.people = people;
     }
 
-    public Gender guessGenderWithFirstVariant(String name) { // TODO: 27.02.2021 ignoreCase
+    public Gender guessGenderWithFirstVariant(String name) {
         String[] s = name.split(" ");
-        String firstPartOfName = s[0];
+        String firstPartOfName = s[0].toLowerCase();
         List<String> males = getMatchingGenderWithFirstVariant(firstPartOfName, people.getMale());
         List<String> females = getMatchingGenderWithFirstVariant(firstPartOfName, people.getFemale());
         return getGenderWithFirstVariant(males, females);
@@ -32,7 +32,7 @@ public class PeopleService {
 
     private List<String> getMatchingGenderWithFirstVariant(String firstPartOfName, List<String> gender) {
         return gender.stream()
-                .filter(maleName -> maleName.equals(firstPartOfName))
+                .filter(maleName -> maleName.toLowerCase().equals(firstPartOfName))
                 .collect(Collectors.toList());
     }
 
@@ -57,7 +57,7 @@ public class PeopleService {
         List<String> collect = new ArrayList<>();
         for (String s1 : s) {
             for (String person : gender) {
-                if (s1.equals(person)) {
+                if (s1.toLowerCase().equals(person.toLowerCase())) {
                     collect.add(person);
                 }
             }
