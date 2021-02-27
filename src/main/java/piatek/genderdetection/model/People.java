@@ -20,11 +20,13 @@ public class People {
         return female;
     }
 
-
     public List<String> getMale() {
         return male;
     }
 
+//    private List<String> prepareMaleList() {
+//        return ODS.getSheet(ODS.getUrlMales());
+//    }
     private List<String> prepareMaleList() {
         return new ArrayList<>(Arrays.asList(
                 "Antoni", "Jan", "Jakub", "Aleksander", "Szymon", "Franciszek", "Filip", "Mikołaj",
@@ -33,6 +35,9 @@ public class People {
         ));
     }
 
+//    private List<String> prepareFemaleList() {
+//        return ODS.getSheet(ODS.getUrlFemales());
+//    }
     private List<String> prepareFemaleList() {
         return new ArrayList<>(Arrays.asList(
                 "Zuzanna", "Julia", "Zofia", "Maja", "Hanna", "Lena", "Alicja", "Maria", "Oliwia",
