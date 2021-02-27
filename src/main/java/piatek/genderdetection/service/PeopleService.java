@@ -16,6 +16,10 @@ public class PeopleService {
         this.people = people;
     }
 
+    public People getPeople() {
+        return people;
+    }
+
     public Gender guessGenderWithFirstVariant(String name) {
         String[] s = name.split(" ");
         String firstPartOfName = s[0].toLowerCase();

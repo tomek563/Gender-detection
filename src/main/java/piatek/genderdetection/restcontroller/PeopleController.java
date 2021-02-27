@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import piatek.genderdetection.model.Gender;
+import piatek.genderdetection.model.People;
 import piatek.genderdetection.service.PeopleService;
 
 import java.util.List;
@@ -37,5 +38,10 @@ public class PeopleController {
     public ResponseEntity<List<String>> getAllFemaleTokensList() {
         List<String> allAvailableTokens = peopleService.getAllAvailableFemaleTokens();
         return ResponseEntity.ok(allAvailableTokens);
+    }
+    @GetMapping("/tokens/people")
+    public ResponseEntity<People> getAllPeopleTokensList() {
+        People allAvailablePeople = peopleService.getPeople();
+        return ResponseEntity.ok(allAvailablePeople);
     }
 }
