@@ -1,32 +1,32 @@
 package piatek.genderdetection.service;
 
 import org.springframework.stereotype.Service;
+import piatek.genderdetection.model.People;
 import piatek.genderdetection.model.Gender;
-import piatek.genderdetection.model.Sex;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class GenderService {
-    private final Gender gender;
+public class PeopleService {
+    private final People people;
 
-    public GenderService(Gender gender) {
-        this.gender = gender;
+    public PeopleService(People people) {
+        this.people = people;
     }
 
-    public Sex guessGenderWithFirstVariant(String name) { // TODO: 27.02.2021 ignoreCase
+    public Gender guessGenderWithFirstVariant(String name) { // TODO: 27.02.2021 ignoreCase
         String[] s = name.split(" ");
         String firstPartOfName = s[0];
-        List<String> males = getMatchingGenderWithFirstVariant(firstPartOfName, gender.getMale());
-        List<String> females = getMatchingGenderWithFirstVariant(firstPartOfName, gender.getFemale());
+        List<String> males = getMatchingGenderWithFirstVariant(firstPartOfName, people.getMale());
+        List<String> females = getMatchingGenderWithFirstVariant(firstPartOfName, people.getFemale());
         return getGenderWithFirstVariant(males, females);
     }
 
-    private Sex getGenderWithFirstVariant(List<String> males, List<String> females) {
+    private Gender getGenderWithFirstVariant(List<String> males, List<String> females) {
         if (!males.isEmpty() && !females.isEmpty()) {
-            return Sex.INCONCLUSIVE;
+            return Gender.INCONCLUSIVE;
         } else return getGenderWithSecondVariant(!males.isEmpty(), !females.isEmpty());
     }
 
@@ -36,19 +36,19 @@ public class GenderService {
                 .collect(Collectors.toList());
     }
 
-    public Sex guessGenderWithSecondVariant(String name) {
-        List<String> male = getMatchingGenderWithSecondVariant(name, gender.getMale());
-        List<String> female = getMatchingGenderWithSecondVariant(name, gender.getFemale());
+    public Gender guessGenderWithSecondVariant(String name) {
+        List<String> male = getMatchingGenderWithSecondVariant(name, people.getMale());
+        List<String> female = getMatchingGenderWithSecondVariant(name, people.getFemale());
         return getGenderWithSecondVariant(male.size() > female.size(), male.size() < female.size());
     }
 
-    private Sex getGenderWithSecondVariant(boolean b1, boolean b2) {
+    private Gender getGenderWithSecondVariant(boolean b1, boolean b2) {
         if (b1) {
-            return Sex.MALE;
+            return Gender.MALE;
         } else if (b2) {
-            return Sex.FEMALE;
+            return Gender.FEMALE;
         } else {
-            return Sex.INCONCLUSIVE;
+            return Gender.INCONCLUSIVE;
         }
     }
 
@@ -65,7 +65,12 @@ public class GenderService {
         return collect;
     }
 
-    public List<Gender> getAllAvailableTokens() {
-        return new ArrayList<>();
+
+    public List<String> getAllAvailableMaleTokens() {
+        return people.getMale();
+    }
+
+    public List<String> getAllAvailableFemaleTokens() {
+        return people.getFemale();
     }
 }
