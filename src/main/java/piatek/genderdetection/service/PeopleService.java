@@ -26,7 +26,20 @@ public class PeopleService {
         String firstPartOfName = splitNames[indexOfFirstElement].toLowerCase();
         List<String> males = getMatchingGenderWithFirstVariant(firstPartOfName, people.getMale());
         List<String> females = getMatchingGenderWithFirstVariant(firstPartOfName, people.getFemale());
-        return getGender(!males.isEmpty(), !females.isEmpty()); // TODO: 27.02.2021 male and female name is the same
+        return getGenderWithFirstVariant(males, females);
+    }
+
+    private Gender getGenderWithFirstVariant(List<String> males, List<String> females) {
+        /*condition for name in the same gender eg. Daniel, Sam */
+        if (!males.isEmpty() && !females.isEmpty()) {
+            return Gender.INCONCLUSIVE;
+        } else if (!males.isEmpty()) {
+            return Gender.MALE;
+        } else if (!females.isEmpty()) {
+            return Gender.FEMALE;
+        } else {
+            return Gender.INCONCLUSIVE;
+        }
     }
 
     private List<String> getMatchingGenderWithFirstVariant(String firstPartOfName, List<String> gender) {
@@ -35,7 +48,7 @@ public class PeopleService {
                 .collect(Collectors.toList());
     }
 
-    private Gender getGender(boolean moreMen, boolean moreWomen) {
+    private Gender getGenderWithSecondVariant(boolean moreMen, boolean moreWomen) {
         if (moreMen) {
             return Gender.MALE;
         } else if (moreWomen) {
@@ -48,7 +61,7 @@ public class PeopleService {
     public Gender guessGenderWithSecondVariant(String name) {
         List<String> male = getMatchingGenderWithSecondVariant(name, people.getMale());
         List<String> female = getMatchingGenderWithSecondVariant(name, people.getFemale());
-        return getGender(male.size() > female.size(), male.size() < female.size());
+        return getGenderWithSecondVariant(male.size() > female.size(), male.size() < female.size());
     }
 
     private List<String> getMatchingGenderWithSecondVariant(String name, List<String> people) {

@@ -31,7 +31,7 @@ public class People {
         return new ArrayList<>(Arrays.asList(
                 "Antoni", "Jan", "Jakub", "Aleksander", "Szymon", "Franciszek", "Filip", "Mikołaj",
                 "Wojciech", "Adam", "Kacper", "Stanisław", "Marcel", "Leon", "Michał", "Nikodem",
-                "Tymon", "Ignacy", "Wiktor", "Igor"
+                "Tymon", "Ignacy", "Wiktor", "Igor", "Sam"
         ));
     }
 
@@ -42,7 +42,7 @@ public class People {
         return new ArrayList<>(Arrays.asList(
                 "Zuzanna", "Julia", "Zofia", "Maja", "Hanna", "Lena", "Alicja", "Maria", "Oliwia",
                 "Amelia", "Wiktoria", "Aleksandra", "Antonina", "Laura", "Emilia", "Pola", "Marcelina",
-                "Natalia", "Liliana", "Iga"
+                "Natalia", "Liliana", "Iga", "Sam"
         ));
     }
 }
