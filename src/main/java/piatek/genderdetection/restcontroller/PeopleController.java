@@ -19,26 +19,31 @@ public class PeopleController {
     public PeopleController(PeopleService peopleService) {
         this.peopleService = peopleService;
     }
+
     @GetMapping("/1")
     public ResponseEntity<Gender> guessGenderWithFirstVariant(@RequestParam String name) {
         Gender gender = peopleService.guessGenderWithFirstVariant(name);
         return ResponseEntity.ok(gender);
     }
+
     @GetMapping("/2")
     public ResponseEntity<Gender> guessGenderWithSecondVariant(@RequestParam String name) {
         Gender gender = peopleService.guessGenderWithSecondVariant(name);
         return ResponseEntity.ok(gender);
     }
+
     @GetMapping("/tokens/male")
     public ResponseEntity<List<String>> getAllMaleTokensList() {
         List<String> allAvailableMaleTokens = peopleService.getAllAvailableMaleTokens();
         return ResponseEntity.ok(allAvailableMaleTokens);
     }
+
     @GetMapping("/tokens/female")
     public ResponseEntity<List<String>> getAllFemaleTokensList() {
         List<String> allAvailableFemaleTokens = peopleService.getAllAvailableFemaleTokens();
         return ResponseEntity.ok(allAvailableFemaleTokens);
     }
+
     @GetMapping("/tokens/people")
     public ResponseEntity<People> getAllPeopleTokensList() {
         People allAvailablePeople = peopleService.getPeople();

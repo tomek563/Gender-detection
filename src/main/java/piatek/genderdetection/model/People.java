@@ -8,8 +8,8 @@ import java.util.List;
 
 @Component
 public class People {
-    private List<String> female;
-    private List<String> male;
+    private final List<String> female;
+    private final List<String> male;
 
     public People() {
         this.female = prepareFemaleList();
@@ -20,16 +20,9 @@ public class People {
         return female;
     }
 
-    public void setFemale(List<String> female) {
-        this.female = female;
-    }
 
     public List<String> getMale() {
         return male;
-    }
-
-    public void setMale(List<String> male) {
-        this.male = male;
     }
 
     private List<String> prepareMaleList() {
@@ -39,6 +32,7 @@ public class People {
                 "Tymon", "Ignacy", "Wiktor", "Igor"
         ));
     }
+
     private List<String> prepareFemaleList() {
         return new ArrayList<>(Arrays.asList(
                 "Zuzanna", "Julia", "Zofia", "Maja", "Hanna", "Lena", "Alicja", "Maria", "Oliwia",

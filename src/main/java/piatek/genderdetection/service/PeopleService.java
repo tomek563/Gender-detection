@@ -21,17 +21,12 @@ public class PeopleService {
     }
 
     public Gender guessGenderWithFirstVariant(String name) {
-        String[] s = name.split(" ");
-        String firstPartOfName = s[0].toLowerCase();
+        String[] splitNames = name.split(" ");
+        int indexOfFirstElement = 0;
+        String firstPartOfName = splitNames[indexOfFirstElement].toLowerCase();
         List<String> males = getMatchingGenderWithFirstVariant(firstPartOfName, people.getMale());
         List<String> females = getMatchingGenderWithFirstVariant(firstPartOfName, people.getFemale());
-        return getGenderWithFirstVariant(males, females);
-    }
-
-    private Gender getGenderWithFirstVariant(List<String> males, List<String> females) {
-        if (!males.isEmpty() && !females.isEmpty()) {
-            return Gender.INCONCLUSIVE;
-        } else return getGenderWithSecondVariant(!males.isEmpty(), !females.isEmpty());
+        return getGender(!males.isEmpty(), !females.isEmpty());
     }
 
     private List<String> getMatchingGenderWithFirstVariant(String firstPartOfName, List<String> gender) {
@@ -40,33 +35,33 @@ public class PeopleService {
                 .collect(Collectors.toList());
     }
 
-    public Gender guessGenderWithSecondVariant(String name) {
-        List<String> male = getMatchingGenderWithSecondVariant(name, people.getMale());
-        List<String> female = getMatchingGenderWithSecondVariant(name, people.getFemale());
-        return getGenderWithSecondVariant(male.size() > female.size(), male.size() < female.size());
-    }
-
-    private Gender getGenderWithSecondVariant(boolean b1, boolean b2) {
-        if (b1) {
+    private Gender getGender(boolean moreMen, boolean moreWomen) {
+        if (moreMen) {
             return Gender.MALE;
-        } else if (b2) {
+        } else if (moreWomen) {
             return Gender.FEMALE;
         } else {
             return Gender.INCONCLUSIVE;
         }
     }
 
-    private List<String> getMatchingGenderWithSecondVariant(String name, List<String> gender) {
-        String[] s = name.split(" ");
-        List<String> collect = new ArrayList<>();
-        for (String s1 : s) {
-            for (String person : gender) {
-                if (s1.toLowerCase().equals(person.toLowerCase())) {
-                    collect.add(person);
+    public Gender guessGenderWithSecondVariant(String name) {
+        List<String> male = getMatchingGenderWithSecondVariant(name, people.getMale());
+        List<String> female = getMatchingGenderWithSecondVariant(name, people.getFemale());
+        return getGender(male.size() > female.size(), male.size() < female.size());
+    }
+
+    private List<String> getMatchingGenderWithSecondVariant(String name, List<String> people) {
+        String[] splitNames = name.split(" ");
+        List<String> matchedNames = new ArrayList<>();
+        for (String partOfSplitedName : splitNames) {
+            for (String person : people) {
+                if (partOfSplitedName.toLowerCase().equals(person.toLowerCase())) {
+                    matchedNames.add(person);
                 }
             }
         }
-        return collect;
+        return matchedNames;
     }
 
 
