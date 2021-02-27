@@ -9,11 +9,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ODSFile {
+public class ODSFileController {
     private static final String urlMales = "src/main/resources/static/males.ods";
     private static final String urlFemales = "src/main/resources/static/females.ods";
 
-    public ODSFile() {
+    public ODSFileController() {
     }
 
     public static String getUrlMales() {
