@@ -26,12 +26,12 @@ public class PeopleService {
         String firstPartOfName = splitNames[indexOfFirstElement].toLowerCase();
         List<String> males = getMatchingGenderWithFirstVariant(firstPartOfName, people.getMale());
         List<String> females = getMatchingGenderWithFirstVariant(firstPartOfName, people.getFemale());
-        return getGender(!males.isEmpty(), !females.isEmpty());
+        return getGender(!males.isEmpty(), !females.isEmpty()); // TODO: 27.02.2021 male and female name is the same
     }
 
     private List<String> getMatchingGenderWithFirstVariant(String firstPartOfName, List<String> gender) {
         return gender.stream()
-                .filter(maleName -> maleName.toLowerCase().equals(firstPartOfName))
+                .filter(genderName -> genderName.toLowerCase().equals(firstPartOfName))
                 .collect(Collectors.toList());
     }
 
