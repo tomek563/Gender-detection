@@ -5,11 +5,13 @@ import piatek.genderdetection.model.People;
 import piatek.genderdetection.model.Gender;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class PeopleService {
+    // TODO: 28.02.2021 binary search
     private final People people;
 
     public PeopleService(People people) {
@@ -30,8 +32,7 @@ public class PeopleService {
     }
 
     private Gender getGenderWithFirstVariant(List<String> males, List<String> females) {
-        /*condition for name in the same gender eg. Daniel, Sam */
-        if (!males.isEmpty() && !females.isEmpty()) {
+        if (!males.isEmpty() && !females.isEmpty()) {/*condition for name in the same gender eg. Daniel, Sam */
             return Gender.INCONCLUSIVE;
         } else if (!males.isEmpty()) {
             return Gender.MALE;
@@ -44,18 +45,9 @@ public class PeopleService {
 
     private List<String> getMatchingGenderWithFirstVariant(String firstPartOfName, List<String> gender) {
         return gender.stream()
+                .sorted()
                 .filter(genderName -> genderName.toLowerCase().equals(firstPartOfName))
                 .collect(Collectors.toList());
-    }
-
-    private Gender getGenderWithSecondVariant(boolean moreMen, boolean moreWomen) {
-        if (moreMen) {
-            return Gender.MALE;
-        } else if (moreWomen) {
-            return Gender.FEMALE;
-        } else {
-            return Gender.INCONCLUSIVE;
-        }
     }
 
     public Gender guessGenderWithSecondVariant(String name) {
@@ -65,6 +57,7 @@ public class PeopleService {
     }
 
     private List<String> getMatchingGenderWithSecondVariant(String name, List<String> people) {
+        Collections.sort(people);
         String[] splitNames = name.split(" ");
         List<String> matchedNames = new ArrayList<>();
         for (String partOfSplitedName : splitNames) {
@@ -75,6 +68,16 @@ public class PeopleService {
             }
         }
         return matchedNames;
+    }
+
+    private Gender getGenderWithSecondVariant(boolean moreMen, boolean moreWomen) {
+        if (moreMen) {
+            return Gender.MALE;
+        } else if (moreWomen) {
+            return Gender.FEMALE;
+        } else {
+            return Gender.INCONCLUSIVE;
+        }
     }
 
 
