@@ -1,10 +1,12 @@
 package piatek.genderdetection.service;
 
 import org.springframework.stereotype.Service;
+import piatek.genderdetection.algorithm.Algorithm;
 import piatek.genderdetection.model.People;
 import piatek.genderdetection.model.Gender;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,9 +15,11 @@ import java.util.stream.Collectors;
 public class PeopleService {
     // TODO: 28.02.2021 binary search
     private final People people;
+    private final Algorithm algorithm;
 
-    public PeopleService(People people) {
+    public PeopleService(People people, Algorithm algorithm) {
         this.people = people;
+        this.algorithm = algorithm;
     }
 
     public People getPeople() {
@@ -26,8 +30,8 @@ public class PeopleService {
         String[] splitNames = name.split(" ");
         int indexOfFirstElement = 0;
         String firstPartOfName = splitNames[indexOfFirstElement].toLowerCase();
-        List<String> males = getMatchingGenderWithFirstVariant(firstPartOfName, people.getMale());
-        List<String> females = getMatchingGenderWithFirstVariant(firstPartOfName, people.getFemale());
+        List<String> males = getMatchingGenderWithFirstVariant(people.getMale(),firstPartOfName);
+        List<String> females = getMatchingGenderWithFirstVariant(people.getFemale(),firstPartOfName);
         return getGenderWithFirstVariant(males, females);
     }
 
@@ -43,29 +47,21 @@ public class PeopleService {
         }
     }
 
-    private List<String> getMatchingGenderWithFirstVariant(String firstPartOfName, List<String> gender) {
-        return gender.stream()
-                .sorted()
-                .filter(genderName -> genderName.toLowerCase().equals(firstPartOfName))
-                .collect(Collectors.toList());
+    private List<String> getMatchingGenderWithFirstVariant(List<String> gender, String firstPartOfName) {
+        return algorithm.binarySearch(gender, firstPartOfName);
     }
 
     public Gender guessGenderWithSecondVariant(String name) {
-        List<String> male = getMatchingGenderWithSecondVariant(name, people.getMale());
-        List<String> female = getMatchingGenderWithSecondVariant(name, people.getFemale());
+        List<String> male = getMatchingGenderWithSecondVariant(people.getMale(),name);
+        List<String> female = getMatchingGenderWithSecondVariant(people.getFemale(),name);
         return getGenderWithSecondVariant(male.size() > female.size(), male.size() < female.size());
     }
 
-    private List<String> getMatchingGenderWithSecondVariant(String name, List<String> people) {
-        Collections.sort(people);
+    private List<String> getMatchingGenderWithSecondVariant(List<String> people, String name) {
         String[] splitNames = name.split(" ");
         List<String> matchedNames = new ArrayList<>();
         for (String partOfSplitedName : splitNames) {
-            for (String person : people) {
-                if (partOfSplitedName.toLowerCase().equals(person.toLowerCase())) {
-                    matchedNames.add(person);
-                }
-            }
+            matchedNames.addAll(algorithm.binarySearch(people, partOfSplitedName.toLowerCase()));
         }
         return matchedNames;
     }
