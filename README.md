@@ -6,7 +6,7 @@ Project is created in: Java 11, Spring 2.3.4, Gradle 6.8.2, Junit 4.13, Hamcrest
 
 ## API REST simplified Documentation:
 # paths: /api/gender
-#  /1:
+###  /1:
     get:
       summary: guess gender with first variant
       parameters:
@@ -17,7 +17,7 @@ Project is created in: Java 11, Spring 2.3.4, Gradle 6.8.2, Junit 4.13, Hamcrest
       responses:
         '200':
           description: A paged with information of gender (male, female or inconclusive)
-#  /2: 
+###  /2: 
       get:
         summary: guess gender with second variant
         parameters:
@@ -28,19 +28,19 @@ Project is created in: Java 11, Spring 2.3.4, Gradle 6.8.2, Junit 4.13, Hamcrest
         responses:
           '200':
             description: A paged with information of gender (male, female or inconclusive)
-#  /tokens/male: 
+###  /tokens/male: 
       get:
         summary: lists all male
         responses:
           '200':
             description: A paged with all male names
-# /tokens/female: 
+### /tokens/female: 
       get:
         summary: lists all female
         responses:
           '200':
             description: A paged with all female names
-# /tokens/people: 
+### /tokens/people: 
       get:
         summary: lists all people
         responses:
