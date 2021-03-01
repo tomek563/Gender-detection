@@ -5,7 +5,7 @@ Small application that can detect gender by given name
 Project is created in: Java 11, Spring 2.3.4, Gradle 6.8.2, Junit 4.13, Hamcrest 2.2, Mockito 3.8.0, IntelliJ IDEA 11.0.7, Git
 
 ## API REST simplified Documentation:
-# paths: /api/gender
+### paths: /api/gender
 ###  /1:
     get:
       summary: guess gender with first variant
