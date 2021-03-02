@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import piatek.genderdetection.model.Gender;
 import piatek.genderdetection.model.People;
 import piatek.genderdetection.service.PeopleService;
+import piatek.genderdetection.service.PeopleServiceImpl;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
 public class PeopleController {
     private final PeopleService peopleService;
 
-    public PeopleController(PeopleService peopleService) {
+    public PeopleController(PeopleServiceImpl peopleService) {
         this.peopleService = peopleService;
     }
 
@@ -34,13 +35,13 @@ public class PeopleController {
 
     @GetMapping("/tokens/male")
     public ResponseEntity<List<String>> getAllMaleTokensList() {
-        List<String> allAvailableMaleTokens = peopleService.getAllAvailableMaleTokens();
+        List<String> allAvailableMaleTokens = peopleService.getMales();
         return ResponseEntity.ok(allAvailableMaleTokens);
     }
 
     @GetMapping("/tokens/female")
     public ResponseEntity<List<String>> getAllFemaleTokensList() {
-        List<String> allAvailableFemaleTokens = peopleService.getAllAvailableFemaleTokens();
+        List<String> allAvailableFemaleTokens = peopleService.getFemales();
         return ResponseEntity.ok(allAvailableFemaleTokens);
     }
 
@@ -49,4 +50,5 @@ public class PeopleController {
         People allAvailablePeople = peopleService.getPeople();
         return ResponseEntity.ok(allAvailablePeople);
     }
+
 }

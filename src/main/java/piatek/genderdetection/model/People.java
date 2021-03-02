@@ -12,8 +12,13 @@ public class People {
     private final List<String> male;
 
     public People() {
-        this.female = prepareFemaleList();
-        this.male = prepareMaleList();
+        female = new ArrayList<>();
+        male = new ArrayList<>();
+    }
+
+    public People(List<String> female, List<String> male) {
+        this.female = female;
+        this.male = male;
     }
 
     public List<String> getFemale() {
@@ -24,25 +29,5 @@ public class People {
         return male;
     }
 
-//    private List<String> prepareMaleList() {
-//        return ODS.getSheet(ODS.getUrlMales());
-//    }
-    private List<String> prepareMaleList() {
-        return new ArrayList<>(Arrays.asList(
-                "Antoni", "Jan", "Jakub", "Aleksander", "Szymon", "Franciszek", "Filip", "Mikołaj",
-                "Wojciech", "Adam", "Kacper", "Daniel", "Stanisław", "Marcel", "Leon", "Michał", "Nikodem",
-                "Tymon", "Ignacy", "Wiktor", "Igor", "Sam"
-        ));
-    }
 
-//    private List<String> prepareFemaleList() {
-//        return ODS.getSheet(ODS.getUrlFemales());
-//    }
-    private List<String> prepareFemaleList() {
-        return new ArrayList<>(Arrays.asList(
-                "Zuzanna", "Julia", "Zofia", "Maja", "Hanna", "Lena", "Alicja", "Maria", "Oliwia",
-                "Amelia", "Wiktoria", "Aleksandra", "Halina", "Antonina", "Laura", "Emilia", "Pola", "Marcelina",
-                "Natalia", "Liliana", "Iga", "Sam"
-        ));
-    }
 }

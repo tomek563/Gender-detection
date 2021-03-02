@@ -4,6 +4,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-public interface Algorithm {
-    List<String> binarySearch(List<String> elements, String name);
+public interface Search {
+    List<String> search(List<String> elements, String name);
 }
