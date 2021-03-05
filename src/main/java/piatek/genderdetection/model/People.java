@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Component
 public class People {
     private final List<String> female;
     private final List<String> male;
@@ -28,6 +27,5 @@ public class People {
     public List<String> getMale() {
         return male;
     }
-
 
 }

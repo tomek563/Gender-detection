@@ -50,5 +50,4 @@ public class PeopleController {
         People allAvailablePeople = peopleService.getPeople();
         return ResponseEntity.ok(allAvailablePeople);
     }
-
 }

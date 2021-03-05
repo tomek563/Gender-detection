@@ -6,6 +6,7 @@ import piatek.genderdetection.model.Gender;
 import piatek.genderdetection.model.People;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public abstract class PeopleService {

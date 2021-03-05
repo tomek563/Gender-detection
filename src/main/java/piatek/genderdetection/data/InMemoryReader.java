@@ -1,5 +1,6 @@
 package piatek.genderdetection.data;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import piatek.genderdetection.model.People;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Component(value = "memory")
 public class InMemoryReader implements NamesReader {
+
     private final People people;
 
     public InMemoryReader() {
